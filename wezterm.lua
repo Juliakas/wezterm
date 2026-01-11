@@ -16,7 +16,11 @@ config.color_scheme = "Catppuccin Mocha"
 config.font = wezterm.font("FiraCode Nerd Font Mono")
 
 config.allow_win32_input_mode = false
-config.default_prog = { "pwsh" }
+if string.find(wezterm.target_triple, "windows") then
+	config.default_prog = { "pwsh" }
+else	
+	config.default_prog = { "fish" }
+end
 
 for i = 1, 8 do
 	-- CTRL+ALT + number to move to that position
