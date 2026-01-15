@@ -18,7 +18,7 @@ config.font = wezterm.font("FiraCode Nerd Font Mono")
 config.allow_win32_input_mode = false
 if string.find(wezterm.target_triple, "windows") then
 	config.default_prog = { "pwsh" }
-else	
+else
 	config.default_prog = { "fish" }
 end
 
@@ -30,6 +30,8 @@ for i = 1, 8 do
 		action = wezterm.action.MoveTab(i - 1),
 	})
 end
+
+config.window_close_confirmation = "NeverPrompt"
 
 -- Finally, return the configuration to wezterm:
 return config
