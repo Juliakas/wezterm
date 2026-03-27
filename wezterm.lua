@@ -18,7 +18,8 @@ config.font = wezterm.font("FiraCode Nerd Font Mono")
 config.allow_win32_input_mode = false
 if string.find(wezterm.target_triple, "windows") then
 	config.default_prog = { "pwsh" }
-else	
+	config.default_domain = "WSL:Ubuntu"
+else
 	config.default_prog = { "fish" }
 end
 
