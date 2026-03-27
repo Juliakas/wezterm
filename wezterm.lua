@@ -32,5 +32,7 @@ for i = 1, 8 do
 	})
 end
 
+config.window_close_confirmation = "NeverPrompt"
+
 -- Finally, return the configuration to wezterm:
 return config
