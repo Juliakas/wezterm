@@ -19,6 +19,23 @@ config.allow_win32_input_mode = false
 if string.find(wezterm.target_triple, "windows") then
 	config.default_prog = { "pwsh" }
 	config.default_domain = "WSL:Ubuntu"
+
+	table.insert(config.keys, {
+		key = "<",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.SpawnCommandInNewTab({
+			domain = { DomainName = "WSL:Ubuntu" },
+		}),
+	})
+
+	table.insert(config.keys, {
+		key = ">",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.SpawnCommandInNewTab({
+			args = { "pwsh" },
+			domain = { DomainName = "local" },
+		}),
+	})
 else
 	config.default_prog = { "fish" }
 end
@@ -32,7 +49,31 @@ for i = 1, 8 do
 	})
 end
 
-config.window_close_confirmation = "NeverPrompt"
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	local pane = tab.active_pane
+	local domain = pane.domain_name
+
+	local bg, fg
+	if string.find(domain, "WSL") then
+		bg = "#89b4fa" -- Catppuccin blue (WSL)
+		fg = "#1e1e2e"
+	else
+		bg = "#a6e3a1" -- Catppuccin green (Windows)
+		fg = "#1e1e2e"
+	end
+
+	local title = tab.active_pane.title
+
+	return {
+		{ Background = { Color = bg } },
+		{ Foreground = { Color = fg } },
+		{ Text = " " .. title .. " " },
+	}
+end)
+
+wezterm.on("mux-is-process-stateful", function(proc)
+	return false
+end)
 
 -- Finally, return the configuration to wezterm:
 return config
