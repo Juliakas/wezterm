@@ -75,5 +75,8 @@ wezterm.on("mux-is-process-stateful", function(proc)
 	return false
 end)
 
+config.window_close_confirmation = "NeverPrompt"
+config.enable_wayland = true
+
 -- Finally, return the configuration to wezterm:
 return config
