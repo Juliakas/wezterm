@@ -67,7 +67,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	return {
 		{ Background = { Color = bg } },
 		{ Foreground = { Color = fg } },
-		{ Text = " " .. title .. " " },
+		{ Text = " " .. (tab.tab_index + 1) .. ": " .. title .. " " },
 	}
 end)
 
